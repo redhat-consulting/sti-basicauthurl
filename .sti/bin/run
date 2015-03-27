@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+echo -e "$OPENSHIFT_CERT_DATA" > /etc/pki/tls/certs/localhost.crt
+echo -e "$OPENSHIFT_KEY_DATA" > /etc/pki/tls/private/localhost.key 
+echo -e "$OPENSHIFT_CA_DATA" > /etc/pki/CA/certs/ca.crt
+
+exec /usr/sbin/httpd -f /etc/httpd/conf/httpd.conf -D FOREGROUND

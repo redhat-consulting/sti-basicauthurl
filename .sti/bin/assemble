@@ -1,0 +1,30 @@
+#!/bin/bash -e
+#
+# Default STI assemble script for the 'authproxy-sti' image.
+#
+
+AUTH_DIR=/etc/httpd/conf.d/sti
+AUTH_CONF_DEST=${AUTH_DIR}/auth.conf
+
+cd /tmp/src
+source ./basicauthurl.conf
+mkdir /etc/httpd/conf.d/sti
+
+case "$AUTH_TYPE" in
+  (htpasswd)
+    cp ./$HTPASSWD_FILE /etc/openshift-passwd
+    cat <<EOF > $AUTH_CONF_DEST
+AuthUserFile /etc/openshift-passwd
+AuthType basic
+AuthName openshift
+EOF
+    ;;
+  (ldap)
+    cat <<EOF > $AUTH_CONF_DEST
+AuthName openshift
+AuthType Basic
+AuthBasicProvider ldap
+AuthLDAPURL "${AuthLDAPURL}"
+EOF
+    ;;
+esac
