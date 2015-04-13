@@ -24,7 +24,10 @@ EOF
 AuthName openshift
 AuthType Basic
 AuthBasicProvider ldap
-AuthLDAPURL "${AuthLDAPURL}"
 EOF
+    for v in `compgen -A variable | grep "^AuthLDAP"`; do
+      eval value=\$$v
+      echo "$v $value" >> $AUTH_CONF_DEST
+    done
     ;;
 esac
