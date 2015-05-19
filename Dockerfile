@@ -5,10 +5,12 @@
 
 FROM registry.access.redhat.com/rhel
 
-RUN yum -y --enablerepo=rhel-7-server-optional-rpms install tar httpd mod_ssl mod_ldap php findutils procps-ng lsof strace && yum clean all
+RUN yum -y --enablerepo=rhel-7-server-optional-rpms install tar httpd mod_ssl mod_ldap php && yum clean all
 
 # Default STI scripts url
-ENV STI_SCRIPTS_URL https://raw.githubusercontent.com/openshift/sti-basicauthurl/master/.sti/bin
+#ENV STI_SCRIPTS_URL https://raw.githubusercontent.com/openshift/sti-basicauthurl/master/.sti/bin
+ENV STI_SCRIPTS_URL https://raw.githubusercontent.com/redhat-consulting/sti-basicauthurl/master/.sti/bin
+
 # Default destination of scripts and sources, this is where assemble will look for them
 ENV STI_LOCATION /tmp
 

@@ -6,6 +6,9 @@
 AUTH_DIR=/etc/httpd/conf.d/sti
 AUTH_CONF_DEST=${AUTH_DIR}/auth.conf
 
+yum --disablerepo=* --enablerepo=rhel-7-server-rpms -y install findutils procps-ng lsof strace yum-utils
+yum --enablerepo=* clean all
+
 cd /tmp/src
 source ./basicauthurl.conf
 mkdir /etc/httpd/conf.d/sti
