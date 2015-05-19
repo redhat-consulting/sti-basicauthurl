@@ -9,6 +9,8 @@ AUTH_CONF_DEST=${AUTH_DIR}/auth.conf
 yum --disablerepo=* --enablerepo=rhel-7-server-rpms -y install findutils procps-ng lsof strace yum-utils
 yum --enablerepo=* clean all
 
+sed -e '/^ErrorLog/s: .*$: "/dev/stderr":g' -i /etc/httpd/conf/httpd.conf
+
 cd /tmp/src
 source ./basicauthurl.conf
 mkdir /etc/httpd/conf.d/sti
